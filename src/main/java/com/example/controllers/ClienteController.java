@@ -19,7 +19,9 @@ import com.example.services.ClienteService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -32,6 +34,7 @@ public class ClienteController {
 	@ApiResponse( code = 201, message = "Cliente criado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente salvar(@RequestBody Cliente cliente) {
+		log.info("ClienteController - Salvar cliente.");
 		return this.clienteService.salvar(cliente);
 	}
 	
@@ -40,6 +43,7 @@ public class ClienteController {
 	@ApiResponse( code = 201, message = "Cliente atualizado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente atualizar(@RequestBody Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
+		log.info("ClienteController - Atualizar cliente.");
 		Cliente client = this.clienteService.getCliente(IdCliente);
 		cliente.setIdCliente(client.getIdCliente());
 		return this.clienteService.salvar(cliente);
@@ -50,6 +54,7 @@ public class ClienteController {
 	@ApiResponse( code = 302, message = "Clientes encontrados com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public List<Cliente> listarClientes() {
+		log.info("ClienteController - Listar todos clientes.");
 		return this.clienteService.listarClientes();
 	}
 
@@ -59,6 +64,7 @@ public class ClienteController {
 	@ApiResponse( code = 302, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public Cliente getCliente(@PathVariable("id_cliente") Integer IdCliente) {
+		log.info("ClienteController - Buscar cliente.");
 		return this.clienteService.getCliente(IdCliente);
 	}
 	
@@ -67,6 +73,7 @@ public class ClienteController {
 	@ApiResponse( code = 302, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public void eliminar(@PathVariable("id_cliente") Integer IdCliente) {
+		log.info("ClienteController - Eliminar cliente.");
 		this.clienteService.eliminar(IdCliente);
 	}
 
