@@ -31,13 +31,13 @@ public class ClienteService {
 	}
 	
 	public void eliminar(Integer idCliente) {
-		log.info("ClienteService - ");
+		log.info("ClienteService - eliminar cliente.");
 		 Cliente cliente = this.getCliente(idCliente);
 		 this.clienteRepository.delete(cliente);
 	}
 	
 	public List<Cliente> listarClientes(){
-		log.info("ClienteService - listando os clientes");
+		log.info("ClienteService - listando os clientes.");
 		return this.clienteRepository.findAll();
 	}
 }
