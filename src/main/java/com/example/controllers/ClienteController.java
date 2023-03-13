@@ -2,6 +2,8 @@ package com.example.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,55 +30,52 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	@PostMapping
 	@ApiOperation("Salvar cliente.")
-	@ApiResponse( code = 201, message = "Cliente criado com sucesso.")
+	@ApiResponse(code = 201, message = "Cliente criado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente salvar(@RequestBody Cliente cliente) {
+	public Cliente salvar(@RequestBody @Valid Cliente cliente) {
 		log.info("ClienteController - Salvar cliente.");
 		return this.clienteService.salvar(cliente);
 	}
-	
+
 	@PatchMapping("/{id_cliente}")
 	@ApiOperation("Atualizar cliente.")
-	@ApiResponse( code = 201, message = "Cliente atualizado com sucesso.")
+	@ApiResponse(code = 201, message = "Cliente atualizado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente atualizar(@RequestBody Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
+	public Cliente atualizar(@RequestBody @Valid Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Atualizar cliente.");
 		Cliente client = this.clienteService.getCliente(IdCliente);
 		cliente.setIdCliente(client.getIdCliente());
 		return this.clienteService.salvar(cliente);
 	}
-	
+
 	@GetMapping
 	@ApiOperation("Listar todos clientes.")
-	@ApiResponse( code = 302, message = "Clientes encontrados com sucesso.")
+	@ApiResponse(code = 302, message = "Clientes encontrados com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public List<Cliente> listarClientes() {
 		log.info("ClienteController - Listar todos clientes.");
 		return this.clienteService.listarClientes();
 	}
 
-	
 	@GetMapping("/{id_cliente}")
 	@ApiOperation("Buscar cliente.")
-	@ApiResponse( code = 302, message = "Cliente encontrado com sucesso.")
+	@ApiResponse(code = 302, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public Cliente getCliente(@PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Buscar cliente.");
 		return this.clienteService.getCliente(IdCliente);
 	}
-	
+
 	@DeleteMapping("/{id_cliente}")
 	@ApiOperation("Eliminar cliente.")
-	@ApiResponse( code = 302, message = "Cliente encontrado com sucesso.")
+	@ApiResponse(code = 302, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
 	public void eliminar(@PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Eliminar cliente.");
 		this.clienteService.eliminar(IdCliente);
 	}
 
-	
-	
 }
