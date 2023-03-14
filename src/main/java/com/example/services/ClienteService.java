@@ -22,7 +22,6 @@ public class ClienteService {
 	public Cliente salvar(Cliente cliente) {
 		log.info("ClienteService - salvando cliente. ");
 		cliente.setDataCadastro(LocalDate.now());
-		Cliente clt = cliente;
 		return this.clienteRepository.save(cliente);
 	}
 
