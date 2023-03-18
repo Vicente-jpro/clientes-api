@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class ClienteController {
 	@ApiOperation("Salvar cliente.")
 	@ApiResponse(code = 201, message = "Cliente criado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente salvar(@RequestBody @Valid Cliente cliente) {
+	public Cliente salvar(@Valid @RequestBody Cliente cliente) {
 		log.info("ClienteController - Salvar cliente.");
 		return this.clienteService.salvar(cliente);
 	}
@@ -46,7 +47,7 @@ public class ClienteController {
 	@ApiOperation("Atualizar cliente.")
 	@ApiResponse(code = 201, message = "Cliente atualizado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente atualizar(@RequestBody @Valid Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
+	public Cliente atualizar(@Valid @RequestBody Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Atualizar cliente.");
 		Cliente client = this.clienteService.getCliente(IdCliente);
 		cliente.setIdCliente(client.getIdCliente());

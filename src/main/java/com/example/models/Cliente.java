@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -22,11 +23,11 @@ public class Cliente {
 	private Integer idCliente;
 
 	@Column(name = "nome")
-	@NotNull(message = "Campo nome não pode estar vazio.")
+	@NotBlank(message = "Campo nome não pode estar vazio.")
 	private String nome;
 
 	@Column(name = "bi")
-	@NotNull(message = "Campo BI não pode estar vazio.")
+	@NotBlank(message = "Campo BI não pode estar vazio.")
 	private String bi;
 
 	@Column(name = "data_cadastro")
