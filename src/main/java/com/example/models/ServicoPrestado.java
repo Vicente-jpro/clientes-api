@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "servico_prestado")
 public class ServicoPrestado {
