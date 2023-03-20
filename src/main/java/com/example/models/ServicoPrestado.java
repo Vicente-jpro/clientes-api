@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "servico_prestado")
@@ -22,13 +23,16 @@ public class ServicoPrestado {
     private Integer idServicoPrestado;
 
     @Column(name = "descricao")
+    @NotBlank(message = "Campo Descrição não pode estar vazio.")
     private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+    @NotBlank(message = "Campo Cliente não pode estar vazio.")
     private Cliente cliente;
 
     @Column(name = "valor")
+    @NotBlank(message = "Campo Valor não pode estar vazio.")
     private BigDecimal valor;
 
     @Column(name = "data_servico_prestado")
