@@ -54,7 +54,7 @@ public class ClienteController {
 		return this.clienteService.salvar(cliente);
 	}
 
-	@GetMapping(value = "/", produces = "application/json")
+	@GetMapping
 	@ApiOperation("Listar todos clientes.")
 	@ApiResponse(code = 302, message = "Clientes encontrados com sucesso.")
 	@ResponseStatus(HttpStatus.FOUND)
