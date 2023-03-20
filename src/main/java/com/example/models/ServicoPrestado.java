@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -31,11 +33,10 @@ public class ServicoPrestado {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
-    @NotBlank(message = "Campo Cliente não pode estar vazio.")
+    @JsonIgnore
     private Cliente cliente;
 
     @Column(name = "valor")
-    @NotBlank(message = "Campo Valor não pode estar vazio.")
     private BigDecimal valor;
 
     @Column(name = "data_servico_prestado")
