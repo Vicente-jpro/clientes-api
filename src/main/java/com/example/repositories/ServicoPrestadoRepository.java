@@ -13,11 +13,11 @@ import com.example.models.ServicoPrestado;
 @Repository
 public interface ServicoPrestadoRepository extends JpaRepository<ServicoPrestado, Integer> {
 
-    @Query(value = "SELECT sp.id, c.nome, sp.descricao, sp.valor, "
+    @Query(value = "SELECT sp.id, sp.cliente_id , c.nome, sp.descricao, sp.valor, "
             + " sp.data_servico_prestado "
             + " FROM servico_prestado sp "
             + " LEFT JOIN cliente c "
-            + " ON c.id = sp.id_cliente "
+            + " ON c.id = sp.cliente_id"
             + " where upper( c.nome ) like upper( :nome ) "
             + " OR sp.data_servico_prestado = :data", nativeQuery = true)
     List<ServicoPrestado> findByNomeClienteOrMes(
