@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,9 @@ public class ServicoPrestadoService {
         servicoPrestado.setCliente(cliente);
         servicoPrestado.setDescricao(servicoPrestadoDto.getDescricao());
         servicoPrestado.setValor(servicoPrestadoDto.getValor());
-        servicoPrestado.setData(LocalDate.now());
+
+        LocalDate data = LocalDate.parse(servicoPrestadoDto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        servicoPrestado.setData(data);
 
         ServicoPrestado servico = this.servicoPrestadoRepository.save(servicoPrestado);
         return servico;
