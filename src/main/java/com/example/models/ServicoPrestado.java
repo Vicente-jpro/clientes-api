@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -37,6 +39,7 @@ public class ServicoPrestado {
     private BigDecimal valor;
 
     @Column(name = "data_servico_prestado")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
 }

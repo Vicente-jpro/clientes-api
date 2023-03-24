@@ -1,12 +1,17 @@
 package com.example.controllers;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +38,16 @@ public class ServicoPrestadoController {
     public ServicoPrestadoDto salvar(@Valid @RequestBody ServicoPrestadoDto servicoPrestadoDto) {
         log.info("ServicoPrestadoController - Salvar prestação de servico. ");
         return this.servicoPrestadoService.salvar(servicoPrestadoDto);
+    }
+
+    @GetMapping
+    @ApiOperation("Pesquisar servico prestado pelo cliente.")
+    @ApiResponse(code = 302, message = "Servico encontrado.")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<ServicoPrestadoDto> pesquisar(
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "mes", required = false) LocalDate data) {
+
+        return this.servicoPrestadoService.findByNomeClienteOrMes(nome + "%", data);
     }
 }

@@ -3,6 +3,9 @@ package com.example.services;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,4 +57,18 @@ public class ServicoPrestadoService {
         return dto;
     }
 
+    public List<ServicoPrestadoDto> findByNomeClienteOrMes(String nome, LocalDate data) {
+        List<ServicoPrestado> servicoPrestados = this.servicoPrestadoRepository
+                .findByNomeClienteOrMes(nome, data);
+
+        List<ServicoPrestadoDto> lista = new ArrayList<>();
+
+        for (ServicoPrestado servico : servicoPrestados) {
+            ServicoPrestadoDto sp = this.servicoPrestadoConverter
+                    .converterServicoPrestado(servico);
+            lista.add(sp);
+        }
+
+        return lista;
+    }
 }

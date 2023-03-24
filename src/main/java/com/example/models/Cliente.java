@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -37,5 +39,6 @@ public class Cliente {
 	private List<ServicoPrestado> servicosPrestados;
 
 	@Column(name = "data_cadastro")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro;
 }
