@@ -30,7 +30,7 @@ public class ServicoPrestadoController {
     @ApiOperation("Salvar servico prestado por um determinado cliente.")
     @ApiResponse(code = 201, message = "Servico criado com sucesso.")
     @ResponseStatus(HttpStatus.CREATED)
-    public ServicoPrestado salvar(@Valid @RequestBody ServicoPrestadoDto servicoPrestadoDto) {
+    public ServicoPrestadoDto salvar(@Valid @RequestBody ServicoPrestadoDto servicoPrestadoDto) {
         log.info("ServicoPrestadoController - Salvar prestação de servico. ");
         return this.servicoPrestadoService.salvar(servicoPrestadoDto);
     }

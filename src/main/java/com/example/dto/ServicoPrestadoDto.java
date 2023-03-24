@@ -13,8 +13,8 @@ public class ServicoPrestadoDto {
 
     private Integer idServicoPrestado;
     private String descricao;
-    private Integer cliente;
     private BigDecimal valor;
     private String data;
+    private ClienteDto cliente;
 
 }

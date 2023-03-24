@@ -33,7 +33,7 @@ public class Cliente {
 	@NotBlank(message = "Campo BI não pode estar vazio.")
 	private String bi;
 
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cliente")
 	private List<ServicoPrestado> servicosPrestados;
 
 	@Column(name = "data_cadastro")

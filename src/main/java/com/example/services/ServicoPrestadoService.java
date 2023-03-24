@@ -1,16 +1,20 @@
 package com.example.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.dto.ClienteDto;
 import com.example.dto.ServicoPrestadoDto;
 import com.example.models.Cliente;
 import com.example.models.ServicoPrestado;
 import com.example.repositories.ClienteRepository;
 import com.example.repositories.ServicoPrestadoRepository;
+import com.example.utils.BigDecimalConverter;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -24,10 +28,11 @@ public class ServicoPrestadoService {
     @Autowired
     private ClienteService clienteService;
 
-    public ServicoPrestado salvar(ServicoPrestadoDto servicoPrestadoDto) {
+    @Transactional
+    public ServicoPrestadoDto salvar(ServicoPrestadoDto servicoPrestadoDto) {
         log.info("ServicoPrestadoService - Salando a prestação de servico com id_cliente: "
                 + servicoPrestadoDto.getCliente());
-        Cliente cliente = this.clienteService.getCliente(servicoPrestadoDto.getCliente());
+        Cliente cliente = this.clienteService.getCliente(servicoPrestadoDto.getCliente().getIdCliente());
 
         ServicoPrestado servicoPrestado = new ServicoPrestado();
         servicoPrestado.setCliente(cliente);
@@ -37,7 +42,30 @@ public class ServicoPrestadoService {
         LocalDate data = LocalDate.parse(servicoPrestadoDto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         servicoPrestado.setData(data);
 
-        ServicoPrestado servico = this.servicoPrestadoRepository.save(servicoPrestado);
-        return servico;
+        this.servicoPrestadoRepository.save(servicoPrestado);
+
+        ServicoPrestadoDto dto = converterServicoPrestado(servicoPrestado);
+
+        return dto;
+    }
+
+    public ServicoPrestadoDto converterServicoPrestado(ServicoPrestado servicoPrestado) {
+        ClienteDto cliente = converterCliente(servicoPrestado.getCliente());
+        return ServicoPrestadoDto.builder()
+                .idServicoPrestado(servicoPrestado.getIdServicoPrestado())
+                .cliente(cliente)
+                .descricao(servicoPrestado.getDescricao())
+                .data(servicoPrestado.getDescricao())
+                .valor(servicoPrestado.getValor())
+                .build();
+    }
+
+    public ClienteDto converterCliente(Cliente cliente) {
+        return ClienteDto.builder()
+                .idCliente(cliente.getIdCliente())
+                .nome(cliente.getNome())
+                .bi(cliente.getBi())
+                .dataCadastro(String.valueOf(cliente.getDataCadastro()))
+                .build();
     }
 }

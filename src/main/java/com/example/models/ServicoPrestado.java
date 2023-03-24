@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 
 @Data
@@ -33,7 +31,6 @@ public class ServicoPrestado {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
-    @JsonIgnore
     private Cliente cliente;
 
     @Column(name = "valor")
