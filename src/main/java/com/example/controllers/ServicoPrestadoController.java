@@ -45,7 +45,7 @@ public class ServicoPrestadoController {
     @ApiResponse(code = 302, message = "Servico encontrado.")
     @ResponseStatus(HttpStatus.FOUND)
     public List<ServicoPrestadoDto> pesquisar(
-            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "nome", required = false, defaultValue = "A") String nome,
             @RequestParam(value = "mes", required = false) LocalDate data) {
 
         return this.servicoPrestadoService.findByNomeClienteOrMes(nome + "%", data);
