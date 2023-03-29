@@ -3,6 +3,7 @@ package com.example.services;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import com.example.converter.ClienteConverter;
 import com.example.converter.ServicoPrestadoConverter;
 import com.example.dto.ClienteDto;
 import com.example.dto.ServicoPrestadoDto;
+import com.example.exceptions.ServicoPrestadoNotFoundException;
 import com.example.models.Cliente;
 import com.example.models.ServicoPrestado;
 import com.example.repositories.ClienteRepository;
@@ -38,23 +40,30 @@ public class ServicoPrestadoService {
 
     @Transactional
     public ServicoPrestadoDto salvar(ServicoPrestadoDto servicoPrestadoDto) {
-        log.info("ServicoPrestadoService - Salando a prestação de servico com id_cliente: "
-                + servicoPrestadoDto.getCliente());
-        Cliente cliente = this.clienteService.getCliente(servicoPrestadoDto.getCliente().getIdCliente());
 
-        ServicoPrestado servicoPrestado = new ServicoPrestado();
-        servicoPrestado.setCliente(cliente);
-        servicoPrestado.setDescricao(servicoPrestadoDto.getDescricao());
-        servicoPrestado.setValor(servicoPrestadoDto.getValor());
+        try {
 
-        LocalDate data = LocalDate.parse(servicoPrestadoDto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        servicoPrestado.setData(data);
+            log.info("ServicoPrestadoService - Salando a prestação de servico com id_cliente: "
+                    + servicoPrestadoDto.getCliente());
+            Cliente cliente = this.clienteService.getCliente(servicoPrestadoDto.getCliente().getIdCliente());
 
-        this.servicoPrestadoRepository.save(servicoPrestado);
+            ServicoPrestado servicoPrestado = new ServicoPrestado();
+            servicoPrestado.setCliente(cliente);
+            servicoPrestado.setDescricao(servicoPrestadoDto.getDescricao());
+            servicoPrestado.setValor(servicoPrestadoDto.getValor());
 
-        ServicoPrestadoDto dto = servicoPrestadoConverter.converterServicoPrestado(servicoPrestado);
+            LocalDate data = LocalDate.parse(servicoPrestadoDto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            servicoPrestado.setData(data);
 
-        return dto;
+            this.servicoPrestadoRepository.save(servicoPrestado);
+
+            ServicoPrestadoDto dto = servicoPrestadoConverter.converterServicoPrestado(servicoPrestado);
+
+            return dto;
+        } catch (DateTimeParseException e) {
+            throw new ServicoPrestadoNotFoundException("Formato da data inválido. :" + servicoPrestadoDto.getData());
+        }
+
     }
 
     public List<ServicoPrestadoDto> findByNomeClienteOrMes(String nome, LocalDate data) {
