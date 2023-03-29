@@ -22,12 +22,12 @@ public class WebConfig {
         corsConfiguration.setAllowedOrigins(all);
         corsConfiguration.setAllowedHeaders(all);
         corsConfiguration.setAllowedMethods(all);
-        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
-        CorsFilter corsFilter = new CorsFilter(source);
 
+        CorsFilter corsFilter = new CorsFilter(source);
         FilterRegistrationBean<CorsFilter> filter = new FilterRegistrationBean<>(corsFilter);
         filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
