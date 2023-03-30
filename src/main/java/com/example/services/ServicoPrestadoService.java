@@ -62,6 +62,8 @@ public class ServicoPrestadoService {
 
             return dto;
         } catch (DateTimeParseException e) {
+            log.error("ServicoPrestadoService - ERRO ao salvar prestação de servico. \n formato da data invalido: ");
+
             throw new DadosInvalidoException("Formato da data inválido. :" + servicoPrestadoDto.getData());
         }
 
