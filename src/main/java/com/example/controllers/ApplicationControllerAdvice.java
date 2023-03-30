@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.exceptions.ClienteNotFoundException;
+import com.example.exceptions.DadosInvalidoException;
 import com.example.exceptions.ServicoPrestadoNotFoundException;
 import com.example.utils.ApiErrors;
 
@@ -23,6 +24,14 @@ public class ApplicationControllerAdvice {
 	@ExceptionHandler(ClienteNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ApiErrors clienteNotFoundExceptionHandle(ClienteNotFoundException ex) {
+		this.mensagemErro = ex.getMessage();
+		return new ApiErrors(mensagemErro);
+	}
+
+	@ResponseBody
+	@ExceptionHandler(DadosInvalidoException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ApiErrors DadosInvalidoExceptionHandle(DadosInvalidoException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
 	}

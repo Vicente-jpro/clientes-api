@@ -16,6 +16,7 @@ import com.example.converter.ClienteConverter;
 import com.example.converter.ServicoPrestadoConverter;
 import com.example.dto.ClienteDto;
 import com.example.dto.ServicoPrestadoDto;
+import com.example.exceptions.DadosInvalidoException;
 import com.example.exceptions.ServicoPrestadoNotFoundException;
 import com.example.models.Cliente;
 import com.example.models.ServicoPrestado;
@@ -61,7 +62,7 @@ public class ServicoPrestadoService {
 
             return dto;
         } catch (DateTimeParseException e) {
-            throw new ServicoPrestadoNotFoundException("Formato da data inválido. :" + servicoPrestadoDto.getData());
+            throw new DadosInvalidoException("Formato da data inválido. :" + servicoPrestadoDto.getData());
         }
 
     }
