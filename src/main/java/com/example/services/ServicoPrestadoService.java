@@ -69,9 +69,9 @@ public class ServicoPrestadoService {
 
     }
 
-    public List<ServicoPrestadoDto> findByNomeClienteOrMes(String nome, LocalDate data) {
+    public List<ServicoPrestadoDto> findByNomeClienteOrData(String nome, LocalDate data) {
         List<ServicoPrestado> servicoPrestados = this.servicoPrestadoRepository
-                .findByNomeClienteOrMes(nome, data);
+                .findByNomeClienteOrData(nome, data);
 
         List<ServicoPrestadoDto> lista = new ArrayList<>();
 

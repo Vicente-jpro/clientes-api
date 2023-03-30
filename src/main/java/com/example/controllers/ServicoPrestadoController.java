@@ -56,8 +56,8 @@ public class ServicoPrestadoController {
     @ResponseStatus(HttpStatus.FOUND)
     public List<ServicoPrestadoDto> pesquisar(
             @RequestParam(value = "nome", required = false, defaultValue = "A") String nome,
-            @RequestParam(value = "mes", required = false) LocalDate data) {
+            @RequestParam(value = "data", required = false) LocalDate data) {
 
-        return this.servicoPrestadoService.findByNomeClienteOrMes(nome + "%", data);
+        return this.servicoPrestadoService.findByNomeClienteOrData(nome + "%", data);
     }
 }
