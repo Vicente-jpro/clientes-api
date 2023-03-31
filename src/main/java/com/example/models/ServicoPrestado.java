@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,6 +44,7 @@ public class ServicoPrestado {
 
     @Column(name = "data_servico_prestado")
     @JsonFormat(pattern = "dd/MM/yyyy")
+    // @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
 }

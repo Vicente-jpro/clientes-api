@@ -1,12 +1,15 @@
 package com.example.controllers;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,8 +59,9 @@ public class ServicoPrestadoController {
     @ResponseStatus(HttpStatus.FOUND)
     public List<ServicoPrestadoDto> pesquisar(
             @RequestParam(value = "nome", required = false, defaultValue = "A") String nome,
-            @RequestParam(value = "data", required = false) LocalDate data) {
+            @RequestParam(value = "data", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate data) {
 
         return this.servicoPrestadoService.findByNomeClienteOrData(nome + "%", data);
     }
+
 }

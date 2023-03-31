@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class ServicoPrestadoService {
         } catch (DateTimeParseException e) {
             log.error("ServicoPrestadoService - ERRO ao salvar prestação de servico. \n formato da data invalido: ");
 
-            throw new DadosInvalidoException("Formato da data inválido. :" + servicoPrestadoDto.getData());
+            throw new DadosInvalidoException("Formato da data inválido. Usar o formato dd/MM/yyyy.");
         }
 
     }
@@ -83,4 +84,5 @@ public class ServicoPrestadoService {
 
         return lista;
     }
+
 }
