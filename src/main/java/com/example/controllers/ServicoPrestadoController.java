@@ -50,7 +50,7 @@ public class ServicoPrestadoController {
         return this.servicoPrestadoService.salvar(servicoPrestadoDto);
     }
 
-    @GetMapping
+    @GetMapping("/search")
     @ApiOperation("Pesquisar servico prestado pelo cliente.")
     @ApiResponses({
             @ApiResponse(code = 302, message = "Servico encontrado."),
@@ -64,4 +64,11 @@ public class ServicoPrestadoController {
         return this.servicoPrestadoService.findByNomeClienteOrData(nome + "%", data);
     }
 
+    @GetMapping
+    @ApiOperation("Listar todos os servicos prestados")
+    @ApiResponse(code = 200, message = "Servico encontrado")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<ServicoPrestadoDto> listarTodos() {
+        return this.servicoPrestadoService.listarTodos();
+    }
 }

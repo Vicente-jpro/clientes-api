@@ -85,4 +85,19 @@ public class ServicoPrestadoService {
         return lista;
     }
 
+    public List<ServicoPrestadoDto> listarTodos() {
+        List<ServicoPrestado> servicoPrestados = this.servicoPrestadoRepository
+                .findAll();
+
+        List<ServicoPrestadoDto> lista = new ArrayList<>();
+
+        for (ServicoPrestado servico : servicoPrestados) {
+            ServicoPrestadoDto sp = this.servicoPrestadoConverter
+                    .converterServicoPrestado(servico);
+            lista.add(sp);
+        }
+
+        return lista;
+    }
+
 }
