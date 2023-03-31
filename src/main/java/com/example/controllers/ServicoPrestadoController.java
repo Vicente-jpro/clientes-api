@@ -65,8 +65,8 @@ public class ServicoPrestadoController {
     }
 
     @GetMapping
-    @ApiOperation("Listar todos os servicos prestados")
-    @ApiResponse(code = 200, message = "Servico encontrado")
+    @ApiOperation("Listar todos os servicos prestados.")
+    @ApiResponse(code = 200, message = "Servico encontrado.")
     @ResponseStatus(HttpStatus.FOUND)
     public List<ServicoPrestadoDto> listarTodos() {
         return this.servicoPrestadoService.listarTodos();
