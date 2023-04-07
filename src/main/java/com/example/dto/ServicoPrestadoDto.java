@@ -6,9 +6,11 @@ import com.example.models.Cliente;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 public class ServicoPrestadoDto {
 
     private Integer idServicoPrestado;
