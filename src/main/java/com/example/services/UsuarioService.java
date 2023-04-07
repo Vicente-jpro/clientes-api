@@ -3,6 +3,7 @@ package com.example.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.models.Usuario;
@@ -20,5 +21,9 @@ public class UsuarioService {
 
     public List<Usuario> listarTodos() {
         return this.usuarioRepository.findAll();
+    }
+
+    public UserDetails loadUserByUsername(String loginUsuario) {
+        return null;
     }
 }
