@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,12 @@ import com.example.models.Usuario;
 import com.example.repositories.UsuarioRepository;
 import com.example.services.UsuarioService;
 
+import java.util.List;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 
 @RestController
-@RequestMapping("/api/usuario")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -27,9 +29,17 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation("Salvar usuário.")
-    @ApiResponse(code = 200, message = "Usuario criado")
+    @ApiResponse(code = 200, message = "Usuario criado novo usuário")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario salvar(@Valid @RequestBody Usuario usuario) {
         return this.usuarioService.save(usuario);
+    }
+
+    @GetMapping
+    @ApiOperation("Listar todos usuarios.")
+    @ApiResponse(code = 302, message = "Usuários encontrados.")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<Usuario> listarTodos() {
+        return this.usuarioService.listarTodos();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class UsuarioService {
 
     public Usuario save(Usuario usuario) {
         return this.usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> listarTodos() {
+        return this.usuarioRepository.findAll();
     }
 }
