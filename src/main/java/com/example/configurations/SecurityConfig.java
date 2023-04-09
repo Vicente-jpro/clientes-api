@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER");
     }
 
+    @Bean
     @Override
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();

@@ -27,7 +27,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endPoints) throws Exception {
         endPoints
                 .tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
+                .authenticationManager(this.authenticationManager);
     }
 
     // Permite acesso nas aplicações front end

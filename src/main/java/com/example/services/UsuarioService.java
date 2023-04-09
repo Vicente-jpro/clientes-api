@@ -19,9 +19,6 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     public Usuario save(Usuario usuario) {
         return this.usuarioRepository.save(usuario);
     }
