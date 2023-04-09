@@ -12,7 +12,12 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Bean
     public void config(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http
+                .authorizeRequests()
+                .antMatchers("/api/clientes/**").authenticated()
+                .antMatchers("/api/servico-prestado/**").authenticated()
+                .antMatchers("/api/usuarios/**").permitAll()
+                .anyRequest().denyAll();
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.configurations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -22,60 +23,29 @@ import com.example.services.UsuarioService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private JwtService jwtService;
-
-    @Bean
-    public OncePerRequestFilter jwtFilter() {
-        return new JwtAuthFilter(jwtService, usuarioService);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // auth.userDetailsService(usuarioService)
+        // .passwordEncoder(passwordEncoder());
+        auth.inMemoryAuthentication()
+                .withUser("vicente")
+                .password("vicente0301")
+                .roles("USER");
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(usuarioService)
-                .passwordEncoder(passwordEncoder());
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable() // Para trabalhar no modo API
-                .authorizeHttpRequests() // Autorizar o pedido
-                // .antMatchers("/api/clientes/**").authenticated() Cliente deve estar
-                // autenticado para acessar API clientes
-                // .antMatchers("/api/clientes/**").hasRole("USER") Cliente deve ter ROLE "USER"
-                // para acessar API
-                // .antMatchers("/api/clientes/**").hasAuthority("MANTER USUARIO") Autenticado
-                // permante para acessar API
-                // .antMatchers("/api/clientes/**").permitAll() Permitir todos os usuários
-                // acessarem essa rota
-                .antMatchers("/api/clientes/**")
-                .hasAnyRole("USER", "ADMIN")
-
-                .antMatchers("/api/pedidos/**")
-                .hasAnyRole("USER", "ADMIN")
-
-                .antMatchers("/api/produtos/**")
-                .hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/usuarios/**")
-                .permitAll()
-                .anyRequest().authenticated()
+                .cors()
                 .and()
-                // .formLogin() Fazer autenticacao via formulario html
-                // .httpBasic(); Utilizado para fazer autenticação via header no ato da
-                // requisição.
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
     // Permitir o uso do swagger sem ser autenticado
