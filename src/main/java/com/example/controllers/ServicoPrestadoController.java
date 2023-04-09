@@ -33,7 +33,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/servico-prestado")
+@RequestMapping("/api/servico-prestados")
 // @CrossOrigin("http://localhost:4200")
 public class ServicoPrestadoController {
 

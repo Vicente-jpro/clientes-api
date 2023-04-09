@@ -23,14 +23,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new InMemoryTokenStore();
     }
 
-    public void config(AuthorizationServerEndpointsConfigurer endPoints) throws Exception {
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endPoints) throws Exception {
         endPoints
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
     }
 
     // Permite acesso nas aplicações front end
-    public void config(ClientDetailsServiceConfigurer clients) throws Exception {
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
                 .withClient("my-angular-app")
