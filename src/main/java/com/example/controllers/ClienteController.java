@@ -26,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 // @CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
