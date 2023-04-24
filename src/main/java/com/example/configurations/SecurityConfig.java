@@ -24,14 +24,17 @@ import com.example.services.UsuarioService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         // auth.userDetailsService(usuarioService)
         // .passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication()
-                .withUser("vicente")
-                .password("vicente0301")
-                .roles("USER");
+        auth
+                .userDetailsService(usuarioService)
+                .passwordEncoder(passwordEncoder());
+
     }
 
     @Bean
