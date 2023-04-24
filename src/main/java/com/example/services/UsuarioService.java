@@ -7,10 +7,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.exceptions.UsuarioNotFoundException;
 import com.example.models.Usuario;
 import com.example.repositories.UsuarioRepository;
 
@@ -31,13 +29,13 @@ public class UsuarioService implements UserDetailsService {
     public Usuario findByUsuarioById(Integer idUsuario){
         return this.usuarioRepository
             .findById(idUsuario)
-            .orElseThrow( ()-> new UsernameNotFoundException("Usuário não encontrado id invalido: "+idUsuario))
+            .orElseThrow( ()-> new UsernameNotFoundException("Usuário não encontrado id invalido: "+idUsuario));
     }
 
     public Usuario findByUsername(String username){
         return this.usuarioRepository
-            .findById(idUsuario)
-            .orElseThrow( ()-> new UsernameNotFoundException("Usuário não encontrado id invalido: "+idUsuario))
+            .findByUsername(username)
+            .orElseThrow( ()-> new UsernameNotFoundException("Email/Username invalido."));
     }
 
     @Override
