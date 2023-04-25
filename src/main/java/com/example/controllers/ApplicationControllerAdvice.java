@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.exceptions.ClienteNotFoundException;
 import com.example.exceptions.DadosInvalidoException;
 import com.example.exceptions.ServicoPrestadoNotFoundException;
+import com.example.exceptions.UsuarioNotFoundException;
 import com.example.utils.ApiErrors;
 
 @RestControllerAdvice
@@ -41,6 +42,15 @@ public class ApplicationControllerAdvice {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ApiErrors ServicoPrestadoNotFoundExceptionHandle(
 			ServicoPrestadoNotFoundException ex) {
+		this.mensagemErro = ex.getMessage();
+		return new ApiErrors(mensagemErro);
+	}
+
+	@ResponseBody
+	@ExceptionHandler(UsuarioNotFoundException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ApiErrors UsuarioNotFoundExceptionHandle(
+			UsuarioNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
 	}

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.exceptions.DadosInvalidoException;
 import com.example.models.Usuario;
 import com.example.repositories.UsuarioRepository;
 
@@ -19,23 +20,30 @@ public class UsuarioService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario save(Usuario usuario) {
-        return this.usuarioRepository.save(usuario);
+        Usuario user = this.findByEmail(usuario.getEmail());
+        if (user == null)
+            return this.usuarioRepository.save(user);
+        throw new DadosInvalidoException("Esté email já se encontra em uso.");
+    }
+
+    public Usuario findByEmail(String email) {
+        return this.usuarioRepository.findByEmail(email);
     }
 
     public List<Usuario> listarTodos() {
         return this.usuarioRepository.findAll();
     }
 
-    public Usuario findByUsuarioById(Integer idUsuario){
+    public Usuario findByUsuarioById(Integer idUsuario) {
         return this.usuarioRepository
-            .findById(idUsuario)
-            .orElseThrow( ()-> new UsernameNotFoundException("Usuário não encontrado id invalido: "+idUsuario));
+                .findById(idUsuario)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado id invalido: " + idUsuario));
     }
 
-    public Usuario findByUsername(String username){
+    public Usuario findByUsername(String username) {
         return this.usuarioRepository
-            .findByUsername(username)
-            .orElseThrow( ()-> new UsernameNotFoundException("Email/Username invalido."));
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email/Username invalido."));
     }
 
     @Override
