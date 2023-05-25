@@ -14,8 +14,6 @@ import com.example.services.UsuarioService;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 
@@ -31,7 +29,6 @@ public class UsuarioController {
     @ApiResponse(code = 200, message = "Usuario criado novo usuário")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario salvar(@RequestBody Usuario usuario) {
-
         return this.usuarioService.save(usuario);
     }
 

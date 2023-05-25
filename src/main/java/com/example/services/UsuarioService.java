@@ -13,6 +13,9 @@ import com.example.exceptions.DadosInvalidoException;
 import com.example.models.Usuario;
 import com.example.repositories.UsuarioRepository;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class UsuarioService implements UserDetailsService {
 
@@ -20,10 +23,13 @@ public class UsuarioService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario save(Usuario usuario) {
-        Usuario user = this.findByEmail(usuario.getEmail());
-        if (user == null)
-            return this.usuarioRepository.save(user);
-        throw new DadosInvalidoException("Esté email já se encontra em uso.");
+        try {
+            return this.usuarioRepository.save(usuario);
+        } catch (Exception e) {
+            log.error("Este email já se encontra em uso.");
+            throw new DadosInvalidoException("Este email já se encontra em uso.");
+        }
+
     }
 
     public Usuario findByEmail(String email) {

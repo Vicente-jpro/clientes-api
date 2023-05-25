@@ -1,9 +1,6 @@
 package com.example.controllers;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.dto.ServicoPrestadoDto;
-import com.example.models.ServicoPrestado;
 import com.example.services.ServicoPrestadoService;
 
 import io.swagger.annotations.ApiOperation;

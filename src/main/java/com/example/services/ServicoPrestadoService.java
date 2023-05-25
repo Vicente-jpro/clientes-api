@@ -1,29 +1,21 @@
 package com.example.services;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.converter.ClienteConverter;
 import com.example.converter.ServicoPrestadoConverter;
-import com.example.dto.ClienteDto;
 import com.example.dto.ServicoPrestadoDto;
 import com.example.exceptions.DadosInvalidoException;
-import com.example.exceptions.ServicoPrestadoNotFoundException;
 import com.example.models.Cliente;
 import com.example.models.ServicoPrestado;
-import com.example.repositories.ClienteRepository;
 import com.example.repositories.ServicoPrestadoRepository;
-import com.example.utils.BigDecimalConverter;
 
 import lombok.extern.log4j.Log4j2;
 
