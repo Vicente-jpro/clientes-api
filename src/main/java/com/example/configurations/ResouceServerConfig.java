@@ -1,12 +1,11 @@
 package com.example.configurations;
 
-import org.springframework.beans.factory.annotation.Configurable;
-
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-@Configurable
+@Configuration
 @EnableResourceServer
 public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
@@ -14,9 +13,9 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/clientes/**").authenticated()
-                .antMatchers("/api/servico-prestados/**").authenticated()
-                .antMatchers("/api/usuarios/**").permitAll()
+                .antMatchers("/clientes/**").authenticated()
+                .antMatchers("/servico-prestados/**").authenticated()
+                .antMatchers("/usuarios/**").permitAll()
                 .anyRequest().denyAll();
     }
 
