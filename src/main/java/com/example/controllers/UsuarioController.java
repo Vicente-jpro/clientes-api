@@ -33,12 +33,7 @@ public class UsuarioController {
     @ApiResponse(code = 200, message = "Usuario criado novo usuário")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario salvar(@RequestBody @Valid Usuario usuario) {
-        try {
-            usuario = this.usuarioService.save(usuario);
-        } catch (UsuarioCadastradoException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-        return usuario;
+        return this.usuarioService.save(usuario);
     }
 
     @GetMapping
