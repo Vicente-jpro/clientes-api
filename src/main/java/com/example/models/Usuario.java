@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +24,15 @@ public class Usuario {
     private Integer idUsuario;
 
     @Column(name = "username")
-    // @NotBlank(message = "Campo user name não pode estar vazio.")
+    @NotBlank(message = "Campo user name não pode estar vazio.")
     private String username;
 
     @Column(name = "email", unique = true)
-    // @NotBlank(message = "Campo email não pode estar vazio.")
+    @NotBlank(message = "Campo email não pode estar vazio.")
     private String email;
 
     @Column(name = "passwrd")
-    // @NotBlank(message = "Campo nome não pode estar vazio.")
+    @NotBlank(message = "Campo palavra pass não pode estar vazio.")
     private String passwrd;
 
 }

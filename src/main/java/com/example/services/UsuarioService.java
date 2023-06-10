@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.exceptions.DadosInvalidoException;
+import com.example.exceptions.UsuarioCadastradoException;
 import com.example.models.Usuario;
 import com.example.repositories.UsuarioRepository;
 
@@ -23,17 +24,13 @@ public class UsuarioService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario save(Usuario usuario) {
-        try {
-            return this.usuarioRepository.save(usuario);
-        } catch (Exception e) {
+        boolean existe = this.usuarioRepository.existsByEmail(usuario.getEmail());
+        if (existe) {
             log.error("Este email já se encontra em uso.");
-            throw new DadosInvalidoException("Este email já se encontra em uso.");
+            throw new UsuarioCadastradoException(usuario.getEmail());
         }
 
-    }
-
-    public Usuario findByEmail(String email) {
-        return this.usuarioRepository.findByEmail(email);
+        return this.usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listarTodos() {

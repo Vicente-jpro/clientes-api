@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.exceptions.ClienteNotFoundException;
 import com.example.exceptions.DadosInvalidoException;
 import com.example.exceptions.ServicoPrestadoNotFoundException;
+import com.example.exceptions.UsuarioCadastradoException;
 import com.example.exceptions.UsuarioNotFoundException;
 import com.example.utils.ApiErrors;
 
@@ -30,9 +31,17 @@ public class ApplicationControllerAdvice {
 	}
 
 	@ResponseBody
+	@ExceptionHandler(UsuarioCadastradoException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ApiErrors usuarioCadastradoExceptionHandle(UsuarioCadastradoException ex) {
+		this.mensagemErro = ex.getMessage();
+		return new ApiErrors(mensagemErro);
+	}
+
+	@ResponseBody
 	@ExceptionHandler(DadosInvalidoException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ApiErrors DadosInvalidoExceptionHandle(DadosInvalidoException ex) {
+	public ApiErrors dadosInvalidoExceptionHandle(DadosInvalidoException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
 	}
@@ -40,7 +49,7 @@ public class ApplicationControllerAdvice {
 	@ResponseBody
 	@ExceptionHandler(ServicoPrestadoNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ApiErrors ServicoPrestadoNotFoundExceptionHandle(
+	public ApiErrors servicoPrestadoNotFoundExceptionHandle(
 			ServicoPrestadoNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
@@ -49,7 +58,7 @@ public class ApplicationControllerAdvice {
 	@ResponseBody
 	@ExceptionHandler(UsuarioNotFoundException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ApiErrors UsuarioNotFoundExceptionHandle(
+	public ApiErrors usuarioNotFoundExceptionHandle(
 			UsuarioNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);

@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.example.exceptions.UsuarioCadastradoException;
 import com.example.models.Usuario;
 import com.example.services.UsuarioService;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -28,8 +32,13 @@ public class UsuarioController {
     @ApiOperation("Salvar usuário.")
     @ApiResponse(code = 200, message = "Usuario criado novo usuário")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvar(@RequestBody Usuario usuario) {
-        return this.usuarioService.save(usuario);
+    public Usuario salvar(@RequestBody @Valid Usuario usuario) {
+        try {
+            usuario = this.usuarioService.save(usuario);
+        } catch (UsuarioCadastradoException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+        return usuario;
     }
 
     @GetMapping
