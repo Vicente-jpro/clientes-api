@@ -54,7 +54,7 @@ public class ClienteController {
 
 	@GetMapping
 	@ApiOperation("Listar todos clientes.")
-	@ApiResponse(code = 302, message = "Clientes encontrados com sucesso.")
+	@ApiResponse(code = 200, message = "Clientes encontrados com sucesso.")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Cliente> listarClientes() {
 		log.info("ClienteController - Listar todos clientes.");
@@ -72,8 +72,8 @@ public class ClienteController {
 
 	@DeleteMapping("/{id_cliente}")
 	@ApiOperation("Eliminar cliente.")
-	@ApiResponse(code = 200, message = "Cliente encontrado com sucesso.")
-	@ResponseStatus(HttpStatus.OK)
+	@ApiResponse(code = 204, message = "Cliente encontrado com sucesso.")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminar(@PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Eliminar cliente.");
 		this.clienteService.eliminar(IdCliente);
