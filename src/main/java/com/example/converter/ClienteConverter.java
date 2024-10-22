@@ -10,7 +10,7 @@ public class ClienteConverter {
 
     public ClienteDto converterCliente(Cliente cliente) {
         return ClienteDto.builder()
-                .idCliente(cliente.getIdCliente())
+                .idCliente(cliente.getId())
                 .nome(cliente.getNome())
                 .bi(cliente.getBi())
                 .dataCadastro(String.valueOf(cliente.getDataCadastro()))

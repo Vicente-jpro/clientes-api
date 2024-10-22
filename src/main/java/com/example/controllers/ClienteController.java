@@ -48,7 +48,7 @@ public class ClienteController {
 	public Cliente atualizar(@Valid @RequestBody Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
 		log.info("ClienteController - Atualizar cliente.");
 		Cliente client = this.clienteService.getCliente(IdCliente);
-		cliente.setIdCliente(client.getIdCliente());
+		cliente.setId(client.getId());
 		return this.clienteService.salvar(cliente);
 	}
 

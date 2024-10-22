@@ -24,7 +24,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer idCliente;
+	private Integer id;
 
 	@Column(name = "nome")
 	@NotBlank(message = "Campo nome não pode estar vazio.")

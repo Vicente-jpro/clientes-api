@@ -53,6 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // Permitir o front end ler e escrever na minha api
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")
+                
                 // Duração do token 1h e 30min
                 .accessTokenValiditySeconds(1800);
     }
